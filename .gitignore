@@ -1,0 +1,17 @@
+.env
+.env.local
+.venv/
+**/.venv/
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+.run/
+node_modules/
+frontend/.next/
+frontend/node_modules/
+backend/staticfiles/
+*.pyc
+*.pyo
+*.sqlite3
+db.sqlite3
+*.log

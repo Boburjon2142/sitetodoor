@@ -1,0 +1,237 @@
+:root {
+  --bg: #f4f8fc;
+  --surface: #ffffff;
+  --line: #d8e4f0;
+  --text: #122236;
+  --muted: #5f7085;
+  --primary: #0f8f97;
+  --primary-strong: #0a6e75;
+  --accent: #ffab3d;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  background: linear-gradient(180deg, #f9fcff 0%, var(--bg) 75%);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .brand {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.bg-orb {
+  position: fixed;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 9999px;
+  filter: blur(55px);
+  opacity: .36;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.orb-a {
+  background: #8de5ec;
+  top: -8rem;
+  left: -8rem;
+}
+
+.orb-b {
+  background: #ffd39e;
+  top: 6rem;
+  right: -10rem;
+}
+
+.container {
+  width: min(96vw, 1540px);
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+.row { display: flex; }
+.col { display: flex; flex-direction: column; }
+.between { justify-content: space-between; }
+.center { align-items: center; }
+.gap-sm { gap: 10px; }
+.wrap { flex-wrap: wrap; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #ffffffcf;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #d6e6f2;
+  padding: 10px 0;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.topbar a { color: var(--text); text-decoration: none; }
+.topbar nav a {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #edf4fb;
+  transition: .2s ease;
+}
+.topbar nav a:hover { transform: translateY(-1px); background: #e2edf8; }
+
+main { padding: 24px 0 34px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(15, 50, 82, 0.06);
+}
+
+.glass {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.95), rgba(248,253,255,.92)),
+    linear-gradient(125deg, rgba(15,143,151,.15), rgba(255,171,61,.08));
+}
+
+.hero { margin-bottom: 16px; }
+.hero h1 { font-size: clamp(1.6rem, 4.2vw, 2.2rem); margin: 10px 0; }
+.hero p { color: var(--muted); max-width: 58ch; }
+
+.search-row { margin-top: 12px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-num {
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.product-card {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(12, 68, 92, .12);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #d7e6f1;
+}
+
+.detail-image {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid #d7e6f1;
+  margin-bottom: 12px;
+}
+
+.field {
+  min-width: 230px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: 0.95rem;
+}
+
+.field:focus {
+  border-color: #8bcfd5;
+  outline: 3px solid rgba(15, 143, 151, 0.18);
+}
+
+.btn, .btn-ghost {
+  display: inline-block;
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.btn {
+  background: linear-gradient(180deg, var(--primary), var(--primary-strong));
+  color: #fff;
+}
+
+.btn-ghost {
+  background: #e5f5f6;
+  color: #0a5b60;
+}
+
+.btn:hover, .btn-ghost:hover {
+  transform: translateY(-1px);
+}
+
+.badge {
+  display: inline-flex;
+  width: fit-content;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #0b5258;
+  background: #d7f1f3;
+}
+
+.muted { color: var(--muted); }
+.price { font-size: 1.2rem; font-weight: 700; }
+.form-wrap { max-width: 560px; }
+.error { color: #b31c1c; }
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar .row {
+    flex-wrap: wrap;
+  }
+
+  .field {
+    min-width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

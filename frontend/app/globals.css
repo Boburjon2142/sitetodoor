@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --text: #13212e;
+  --muted: #5f6f82;
+  --line: #d9e4ef;
+  --primary: #0f8f97;
+  --primary-strong: #0b6e75;
+  --accent: #ff9e3d;
+  --ok: #12a150;
+  --warning: #d08a00;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 12%, #daf7ff 0%, transparent 30%),
+    radial-gradient(circle at 85% 15%, #ffe7cb 0%, transparent 32%),
+    linear-gradient(180deg, #f9fbfd 0%, var(--bg) 70%);
+  color: var(--text);
+}
+
+.container-main {
+  @apply max-w-6xl mx-auto px-4 sm:px-6;
+}
+
+.card {
+  background: color-mix(in srgb, var(--surface) 86%, #f0f7ff);
+  @apply rounded-2xl border p-5 shadow-sm;
+  border-color: var(--line);
+}
+
+.card-hero {
+  background:
+    linear-gradient(130deg, rgba(15, 143, 151, 0.18), rgba(255, 158, 61, 0.14)),
+    #ffffff;
+  @apply rounded-2xl border p-6 shadow-md;
+  border-color: #cae4e7;
+}
+
+.btn {
+  background: linear-gradient(180deg, var(--primary), var(--primary-strong));
+  @apply text-white px-4 py-2 rounded-xl font-semibold transition-all duration-200;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 143, 151, 0.25);
+}
+
+.btn-secondary {
+  @apply rounded-xl px-4 py-2 font-semibold transition;
+  color: var(--primary-strong);
+  background: #e6f4f5;
+}
+
+.field {
+  @apply w-full rounded-xl border px-3 py-2.5 outline-none transition;
+  border-color: var(--line);
+  background: #fff;
+}
+
+.field:focus {
+  border-color: #8ccfd3;
+  box-shadow: 0 0 0 4px rgba(15, 143, 151, 0.12);
+}
+
+.label {
+  @apply text-sm mb-1.5 block;
+  color: var(--muted);
+}
+
+.chip {
+  @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold;
+  color: #0d4d52;
+  background: #d9f2f3;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.status {
+  @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold;
+}
+
+.status-preparing {
+  @apply status;
+  color: #684d09;
+  background: #fff3d4;
+}
+
+.status-onway {
+  @apply status;
+  color: #0b4f54;
+  background: #daf2f4;
+}
+
+.status-delivered {
+  @apply status;
+  color: #0f5a2f;
+  background: #dbf6e6;
+}
