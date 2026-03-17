@@ -1,17 +1,91 @@
+# Environment and secrets
 .env
-.env.local
-.venv/
-**/.venv/
+.env.*
+!.env.example
+!.env.local.example
+!.env.*.example
+
+# Python
 __pycache__/
 **/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.python-version
+.venv/
+**/.venv/
+venv/
+ENV/
+env/
 .pytest_cache/
-.run/
-node_modules/
-frontend/.next/
-frontend/node_modules/
-backend/staticfiles/
-*.pyc
-*.pyo
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+pip-wheel-metadata/
+
+# Python app runtime and local databases
 *.sqlite3
 db.sqlite3
+instance/
+*.pid
+*.seed
+
+# Django / Flask generated files
+backend/staticfiles/
+backend/media/
+python_html_app/instance/
+python_html_app/staticfiles/
+python_html_app/media/
+
+# Node / Next.js
+node_modules/
+**/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build artifacts
+dist/
+build/
+site/
+.cache/
+coverage/
+
+# Local run helpers and logs
+.run/
 *.log
+*.out
+*.err
+
+# Editors / IDE
+.vscode/
+.idea/
+*.suo
+*.user
+*.userossc
+*.sln.docstates
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Docker
+.docker/
+
+# Keep important lockfiles tracked
+!frontend/package-lock.json

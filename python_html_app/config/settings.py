@@ -8,12 +8,18 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-local-site-to-door-change-
 DEBUG = os.getenv("DEBUG", "1") == "1"
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,testserver").split(",")
+    for host in os.getenv(
+        "ALLOWED_HOSTS",
+        "127.0.0.1,localhost,testserver,.pythonanywhere.com",
+    ).split(",")
     if host.strip()
 ]
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()
-    for origin in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
+    for origin in os.getenv(
+        "CSRF_TRUSTED_ORIGINS",
+        "https://*.pythonanywhere.com",
+    ).split(",")
     if origin.strip()
 ]
 
