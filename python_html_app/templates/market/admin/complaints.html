@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Shikoyatlar boshqaruvi{% endblock %}
+{% block content %}
+<div class="section-head"><h1>Shikoyatlar</h1></div>
+<div class="stack">
+  {% for complaint in complaints %}
+    <div class="card">
+      <div class="summary-row"><strong>{{ complaint.subject }}</strong><span>{{ complaint.get_status_display }}</span></div>
+      <p>{{ complaint.user.username }}</p>
+      <p>{{ complaint.message }}</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

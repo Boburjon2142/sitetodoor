@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Site to door - Bosh sahifa{% endblock %}
+
+{% block content %}
+<section class="hero sketch-hero">
+  <div class="hero-copy card hero-primary">
+    <div class="hero-topline">
+      <span class="section-kicker">Qarshi uchun qurilish bozori</span>
+      <span class="hero-trust">Ishonchli va tezkor buyurtma</span>
+    </div>
+    <h1>Qurilish materiallarini oson qidiring, solishtiring va bir joydan buyurtma bering</h1>
+    <p>Qum, g'isht, sement, santexnika, elektr va boshqa mahsulotlar mobil-first ko'rinishda. Oddiy xaridor uchun tushunarli, tez va ishonchli.</p>
+    <div class="hero-actions">
+      <a href="{% url 'catalog' %}" class="btn">Katalogni ko'rish</a>
+      <a href="{% url 'compare' %}" class="btn btn-soft">Taqqoslash</a>
+    </div>
+    <div class="hero-feature-grid">
+      <div class="hero-feature-card">
+        <strong>Qidiruv</strong>
+        <span>Mahsulotni nomi, turi yoki kategoriya bo'yicha toping</span>
+      </div>
+      <div class="hero-feature-card">
+        <strong>Saqlash</strong>
+        <span>Kerakli mahsulotlarni keyinroq ko'rish uchun saqlang</span>
+      </div>
+      <div class="hero-feature-card">
+        <strong>Taqqoslash</strong>
+        <span>2-4 ta mahsulotni narx va birlik bo'yicha solishtiring</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-side hero-stack">
+    <div class="card quick-actions-card">
+      <div class="panel-head">
+        <h2>Tez kirish</h2>
+        <span>Har kuni ishlatiladigan bo'limlar</span>
+      </div>
+      <div class="quick-actions-grid">
+        <a href="{% url 'catalog' %}" class="quick-action-item">
+          <strong>Katalog</strong>
+          <span>10+ kategoriya</span>
+        </a>
+        <a href="{% url 'favorites' %}" class="quick-action-item">
+          <strong>Saqlangan</strong>
+          <span>Tanlangan mahsulotlar</span>
+        </a>
+        <a href="{% url 'compare' %}" class="quick-action-item">
+          <strong>Taqqoslash</strong>
+          <span>Narxlarni solishtirish</span>
+        </a>
+        <a href="{% url 'cart' %}" class="quick-action-item">
+          <strong>Savat</strong>
+          <span>Buyurtmaga o'tish</span>
+        </a>
+      </div>
+    </div>
+    <div class="card trust-board">
+      <div class="mini-stat"><strong>{{ featured_products|length }}</strong><span>Tavsiya etilgan mahsulot</span></div>
+      <div class="mini-stat"><strong>24/7</strong><span>Mobil-first ko'rinish</span></div>
+      <div class="mini-stat"><strong>Qarshi</strong><span>Mahalliy ehtiyojga mos</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="section-head">
+    <div>
+      <h2>Kategoriyalar</h2>
+      <p>Sketchdagi bo'limlar kabi eng kerakli qurilish yo'nalishlari</p>
+    </div>
+    <a href="{% url 'catalog' %}">Barchasi</a>
+  </div>
+  <div class="category-showcase">
+    {% for category in categories %}
+      <a href="{% url 'category_detail' category.slug %}" class="category-panel card">
+        <span class="category-panel-icon">{{ forloop.counter }}</span>
+        <strong>{{ category.name }}</strong>
+        <span>{{ category.description|default:"Mahalliy qurilish ehtiyojlari uchun" }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="section-head">
+    <div>
+      <h2>Tavsiya etilgan mahsulotlar</h2>
+      <p>Ishonchli va xaridorgir mahsulotlar</p>
+    </div>
+    <a href="{% url 'catalog' %}?sort=popular">Ko'proq</a>
+  </div>
+  <div class="product-grid">
+    {% for product in featured_products %}
+      {% include "market/partials/product_card.html" with product=product %}
+    {% endfor %}
+  </div>
+</section>
+
+{% if recent_products %}
+  <section class="section-block">
+    <div class="section-head">
+      <div>
+        <h2>Yaqinda ko'rilganlar</h2>
+        <p>Oxirgi ko'rgan mahsulotlaringiz</p>
+      </div>
+    </div>
+    <div class="product-grid">
+      {% for product in recent_products %}
+        {% include "market/partials/product_card.html" with product=product %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+<section class="section-block">
+  <div class="section-head">
+    <div>
+      <h2>Sizga mos tavsiyalar</h2>
+      <p>Qarshi bozoridagi ommabop qurilish takliflari</p>
+    </div>
+  </div>
+  <div class="product-grid">
+    {% for product in recommended_products %}
+      {% include "market/partials/product_card.html" with product=product %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section-block dashboard-panels">
+  <div class="card panel-list-card">
+    <div class="panel-head">
+      <h2>Mahsulotlar va turkumlar</h2>
+      <span>Sketchdagi ro'yxat ko'rinishi asosida</span>
+    </div>
+    <ul class="market-list">
+      <li>Qum</li>
+      <li>G'isht</li>
+      <li>Sement</li>
+      <li>Asboblar</li>
+      <li>Santexnika</li>
+      <li>Elektr tovarlari</li>
+      <li>Issiqlik materiallari</li>
+      <li>Tom qoplamalari</li>
+      <li>Ventilyatsiya</li>
+      <li>Bo'yoq va lak materiallari</li>
+    </ul>
+  </div>
+  <div class="card panel-list-card">
+    <div class="panel-head">
+      <h2>Buyurtma oqimi</h2>
+      <span>Sodda va tushunarli xarid bosqichlari</span>
+    </div>
+    <ol class="process-list">
+      <li>Mahsulotni qidiring</li>
+      <li>Saqlang yoki taqqoslang</li>
+      <li>Savatga qo'shing</li>
+      <li>Manzilni kiriting</li>
+      <li>Buyurtmani yakunlang</li>
+    </ol>
+  </div>
+</section>
+{% endblock %}

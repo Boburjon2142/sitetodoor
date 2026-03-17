@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="section-head"><h1>Admin dashboard</h1></div>
+<div class="stats-grid">
+  <div class="card"><strong>{{ product_count }}</strong><span>Mahsulotlar</span></div>
+  <div class="card"><strong>{{ category_count }}</strong><span>Kategoriyalar</span></div>
+  <div class="card"><strong>{{ order_count }}</strong><span>Buyurtmalar</span></div>
+  <div class="card"><strong>{{ complaint_count }}</strong><span>Shikoyatlar</span></div>
+</div>
+<div class="admin-links card">
+  <a href="{% url 'admin_products' %}">Mahsulotlar</a>
+  <a href="{% url 'admin_categories' %}">Kategoriyalar</a>
+  <a href="{% url 'admin_orders' %}">Buyurtmalar</a>
+  <a href="{% url 'admin_complaints' %}">Shikoyatlar</a>
+</div>
+{% endblock %}

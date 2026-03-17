@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Profil{% endblock %}
+{% block content %}
+<section class="section-head">
+  <div>
+    <h1>Mening profilim</h1>
+    <p>Buyurtmalar, manzillar va shaxsiy sozlamalarni boshqaring.</p>
+  </div>
+</section>
+<div class="profile-grid profile-dashboard-grid">
+  <div class="card profile-identity-card">
+    <div class="profile-avatar">{{ request.user.username|slice:":1"|upper }}</div>
+    <div>
+      <h2>{{ request.user.get_full_name|default:request.user.username }}</h2>
+      <p>{{ profile.phone }}</p>
+      <p>{{ profile.city }}{% if profile.district %}, {{ profile.district }}{% endif %}</p>
+    </div>
+    <a href="{% url 'profile_edit' %}" class="btn btn-soft">Profilni tahrirlash</a>
+  </div>
+  <div class="card profile-links sketch-menu-card">
+    <a href="{% url 'profile_orders' %}"><span>Buyurtmalarim</span> <strong>{{ orders_count }}</strong></a>
+    <a href="{% url 'profile_complaints' %}"><span>Shikoyatlarim</span> <strong>{{ complaints_count }}</strong></a>
+    <a href="{% url 'profile_addresses' %}"><span>Mening manzillarim</span> <strong>{{ addresses_count }}</strong></a>
+    <a href="{% url 'profile_notifications' %}"><span>Bildirishnomalar</span> <strong>Sozlash</strong></a>
+    <a href="{% url 'profile_edit' %}"><span>Xavfsizlik va profil</span> <strong>Tahrirlash</strong></a>
+    <a href="{% url 'help' %}"><span>Yordam</span> <strong>Ochish</strong></a>
+  </div>
+</div>
+
+<section class="section-block">
+  <div class="stats-grid profile-stats-grid">
+    <div class="card">
+      <strong>{{ orders_count }}</strong>
+      <span>Faol va yakunlangan buyurtmalar</span>
+    </div>
+    <div class="card">
+      <strong>{{ complaints_count }}</strong>
+      <span>Yuborilgan murojaatlar</span>
+    </div>
+    <div class="card">
+      <strong>{{ addresses_count }}</strong>
+      <span>Saqlangan manzillar</span>
+    </div>
+    <div class="card">
+      <strong>Qarshi</strong>
+      <span>Asosiy xizmat hududi</span>
+    </div>
+  </div>
+</section>
+{% endblock %}

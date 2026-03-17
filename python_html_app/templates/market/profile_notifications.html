@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Bildirishnomalar{% endblock %}
+{% block content %}
+<div class="card form-card">
+  <h1>Bildirishnoma sozlamalari</h1>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <label class="switch-row">{{ field }} <span>{{ field.label }}</span></label>
+    {% endfor %}
+    <button class="btn" type="submit">Saqlash</button>
+  </form>
+</div>
+{% endblock %}

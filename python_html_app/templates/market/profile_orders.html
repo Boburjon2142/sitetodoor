@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Buyurtmalarim{% endblock %}
+{% block content %}
+<div class="section-head"><h1>Buyurtmalarim</h1></div>
+{% if orders %}
+  <div class="stack">
+    {% for order in orders %}
+      <div class="card">
+        <div class="summary-row"><strong>#{{ order.id }}</strong><span>{{ order.get_status_display }}</span></div>
+        <p>{{ order.address_text }}</p>
+        <strong>{{ order.total_price }} so'm</strong>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state card"><p>Buyurtmalar hali yo'q.</p></div>
+{% endif %}
+{% endblock %}

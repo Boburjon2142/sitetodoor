@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<section class="section-head">
+  <div>
+    <span class="section-kicker">Mahsulot tafsiloti</span>
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.category.name }} bo'limidagi ishonchli qurilish mahsuloti</p>
+  </div>
+</section>
+
+<section class="product-detail-layout">
+  <div class="card detail-image-card detail-image-panel">
+    <img class="detail-image" src="{{ product.image|default:'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80' }}" alt="{{ product.name }}">
+    <div class="detail-floating-badges">
+      <span class="product-category">{{ product.category.name }}</span>
+      <span class="badge {{ stock_badge_data.1 }}">{{ stock_badge_data.0 }}</span>
+    </div>
+  </div>
+  <div class="card detail-info detail-info-panel">
+    <div class="detail-header-row">
+      <div>
+        <p class="product-meta">{{ product.brand|default:"Brend ko'rsatilmagan" }} / birlik: {{ product.unit }}</p>
+        <div class="price-row detail-price-row">
+          <strong>{{ product.price }} so'm</strong>
+          <span class="muted-line">{{ product.stock_quantity }} {{ product.unit }} omborda</span>
+        </div>
+      </div>
+      <div class="detail-side-note">Qarshi bo'ylab yetkazish mavjud</div>
+    </div>
+    <p class="detail-lead">{{ product.description_short }}</p>
+    <div class="detail-actions">
+      <form action="{% url 'add_to_cart' product.id %}" method="post">{% csrf_token %}<button class="btn" type="submit">Savatga qo'shish</button></form>
+      <form action="{% url 'toggle_favorite' product.id %}" method="post">{% csrf_token %}<button class="btn btn-soft" type="submit">Saqlash</button></form>
+      <form action="{% url 'toggle_compare' product.id %}" method="post">{% csrf_token %}<button class="btn btn-soft" type="submit">Taqqoslash</button></form>
+      <form action="{% url 'buy_now' product.id %}" method="post">{% csrf_token %}<button class="btn btn-accent" type="submit">Buyurtma berish</button></form>
+    </div>
+    <div class="detail-meta-grid">
+      <div><span>SKU</span><strong>{{ product.sku }}</strong></div>
+      <div><span>Ombor</span><strong>{{ product.stock_quantity }} {{ product.unit }}</strong></div>
+      <div><span>Yetkazish</span><strong>Qarshi bo'ylab mavjud</strong></div>
+      <div><span>Brend</span><strong>{{ product.brand|default:"Mahalliy ishlab chiqaruvchi" }}</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-block info-grid">
+  <div class="card prose-card">
+    <h2>Qisqa tavsif</h2>
+    <p>{{ product.description_full|default:product.description_short|linebreaks }}</p>
+  </div>
+  <div class="card prose-card">
+    <h2>Texnik xususiyatlar</h2>
+    <p>{{ product.technical_specs|default:"Texnik ma'lumotlar tez orada to'ldiriladi."|linebreaks }}</p>
+  </div>
+</section>
+
+{% if similar_products %}
+  <section class="section-block">
+    <div class="section-head">
+      <div>
+        <h2>O'xshash mahsulotlar</h2>
+        <p>Shu kategoriya ichidagi yaqin variantlar</p>
+      </div>
+    </div>
+    <div class="product-grid">
+      {% for product in similar_products %}
+        {% include "market/partials/product_card.html" with product=product %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% if recent_products %}
+  <section class="section-block">
+    <div class="section-head">
+      <div>
+        <h2>Yaqinda ko'rilganlar</h2>
+        <p>Oldin ko'rib chiqqan mahsulotlaringiz</p>
+      </div>
+    </div>
+    <div class="product-grid">
+      {% for product in recent_products %}
+        {% include "market/partials/product_card.html" with product=product %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+{% endblock %}

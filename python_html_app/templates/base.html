@@ -1,33 +1,97 @@
+{% load static %}
 <!doctype html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Site to door{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
 </head>
 <body>
-  <div class="bg-orb orb-a"></div>
-  <div class="bg-orb orb-b"></div>
-  <header class="topbar">
-    <div class="container row between center">
-      <a class="brand" href="{{ url_for('home') }}">Site to door</a>
-      <nav class="row gap-sm">
-        <a href="{{ url_for('home') }}">Bosh sahifa</a>
-        <a href="{{ url_for('create_form') }}">Yangi mahsulot</a>
+  <div class="bg-orb orb-left"></div>
+  <div class="bg-orb orb-right"></div>
+
+  <header class="site-header">
+    <div class="shell topbar">
+      <div class="brand-cluster">
+        <a href="{% url 'home' %}" class="brand">
+          <span class="brand-mark">S</span>
+          <span>Site to door</span>
+        </a>
+        <div class="location-stack">
+          <span class="eyebrow-label">Yetkazish hududi</span>
+          <span class="location-pill">{{ location_label }}</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a href="{% url 'favorites' %}" class="icon-link">
+          <span class="icon-badge">+</span>
+          <span>Saqlangan</span>
+        </a>
+        <a href="{% url 'compare' %}" class="icon-link">
+          <span class="icon-badge">=</span>
+          <span>Taqqoslash</span>
+        </a>
+        <a href="{% url 'cart' %}" class="icon-link">
+          <span class="icon-badge">{{ cart_count|default:"0" }}</span>
+          <span>Savat</span>
+        </a>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'profile_dashboard' %}" class="btn btn-soft">Profil</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-soft">Kirish</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="shell nav-row">
+      <nav class="desktop-nav">
+        <a href="{% url 'catalog' %}">Katalog</a>
+        <a href="{% url 'about' %}">Biz haqimizda</a>
+        <a href="{% url 'contact' %}">Aloqa</a>
+        <a href="{% url 'help' %}">Yordam</a>
+        {% if request.user.is_staff %}
+          <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        {% endif %}
       </nav>
+      <form action="{% url 'catalog' %}" method="get" class="search-form">
+        <input type="text" name="q" placeholder="Qum, sement, armatura..." value="{{ request.GET.q }}">
+        <button type="submit">Qidirish</button>
+      </form>
+    </div>
+    <div class="shell shortcut-strip">
+      <a href="{% url 'catalog' %}" class="shortcut-chip">Kategoriyalar</a>
+      <a href="{% url 'favorites' %}" class="shortcut-chip">Saqlanganlar</a>
+      <a href="{% url 'compare' %}" class="shortcut-chip">Taqqoslash</a>
+      <a href="{% url 'cart' %}" class="shortcut-chip">Savat</a>
+      {% for category in nav_categories %}
+        <a href="{% url 'category_detail' category.slug %}" class="shortcut-chip shortcut-chip-light">{{ category.name }}</a>
+      {% endfor %}
     </div>
   </header>
 
-  <main class="container">
+  {% if messages %}
+    <div class="shell flash-stack">
+      {% for message in messages %}
+        <div class="flash {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <main class="shell page-content">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="footer">
-    <div class="container">{{ year }} - Python orqali HTML render</div>
-  </footer>
+  <nav class="mobile-bottom-nav">
+    <a href="{% url 'home' %}"><span>Uy</span></a>
+    <a href="{% url 'catalog' %}"><span>Katalog</span></a>
+    <a href="{% url 'compare' %}"><span>Taqqoslash</span></a>
+    <a href="{% url 'cart' %}"><span>Savat</span></a>
+    <a href="{% url 'profile_dashboard' %}"><span>Profil</span></a>
+  </nav>
+
+  <script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>

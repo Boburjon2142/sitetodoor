@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<section class="section-head">
+  <div>
+    <h1>Buyurtmani rasmiylashtirish</h1>
+    <p>Manzil, telefon va yetkazish turini to'ldiring.</p>
+  </div>
+</section>
+<div class="checkout-layout">
+  <form method="post" class="card form-card checkout-form-card">
+    <div class="panel-head">
+      <h2>Buyurtma ma'lumotlari</h2>
+      <span>Qabul qiluvchi va yetkazish tafsilotlari</span>
+    </div>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-field">
+        <label>{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<small class="muted-line">{{ field.help_text }}</small>{% endif %}
+        {% if field.errors %}<small class="error-text">{{ field.errors|join:", " }}</small>{% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn">Buyurtma berish</button>
+  </form>
+  <aside class="card order-summary enhanced-summary checkout-summary-card">
+    <h2>Jami</h2>
+    <div class="summary-row"><span>Mahsulotlar</span><strong>{{ cart.subtotal }} so'm</strong></div>
+    <div class="summary-row"><span>To'lov</span><strong>Buyurtma tasdiqlanganda</strong></div>
+    <div class="summary-divider"></div>
+    <div class="summary-row summary-total"><span>Jami</span><strong>{{ cart.subtotal }} so'm</strong></div>
+    <p class="muted-line">Yetkazish turi tanlangach operator siz bilan bog'lanadi.</p>
+    <div class="checkout-note-box">
+      <strong>Qulaylik:</strong>
+      <span>Saqlangan manzil bo'lsa tanlang, bo'lmasa yangi manzilni kiriting.</span>
+    </div>
+  </aside>
+</div>
+{% endblock %}

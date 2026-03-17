@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Saqlanganlar{% endblock %}
+
+{% block content %}
+<section class="section-head">
+  <div>
+    <h1>Saqlangan mahsulotlar</h1>
+    <p>Keyinroq ko'rish yoki taqqoslash uchun tanlangan mahsulotlar.</p>
+  </div>
+</section>
+
+{% if favorites %}
+  <section class="favorites-summary card">
+    <strong>{{ favorites|length }}</strong>
+    <span>ta mahsulot saqlangan. Ularni savatga yoki taqqoslashga o'tkazing.</span>
+  </section>
+  <div class="product-grid">
+    {% for item in favorites %}
+      {% include "market/partials/product_card.html" with product=item.product %}
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state card fancy-empty-state">
+    <div class="empty-state-icon">+</div>
+    <h2>Saqlangan mahsulot yo'q</h2>
+    <p>Yoqtirgan mahsulotlaringiz shu yerda ko'rinadi. Hozircha katalogdan tanlab saqlab qo'ying.</p>
+    <a href="{% url 'catalog' %}" class="btn">Katalogni ko'rish</a>
+  </div>
+{% endif %}
+{% endblock %}

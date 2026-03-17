@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Shikoyatlarim{% endblock %}
+{% block content %}
+<div class="profile-two-col">
+  <div class="card form-card">
+    <h1>Shikoyat yuborish</h1>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-field">
+          <label>{{ field.label }}</label>
+          {{ field }}
+        </div>
+      {% endfor %}
+      <button class="btn" type="submit">Yuborish</button>
+    </form>
+  </div>
+  <div class="card">
+    <h2>Oldingi murojaatlar</h2>
+    <div class="stack">
+      {% for complaint in complaints %}
+        <div class="list-line">
+          <strong>{{ complaint.subject }}</strong>
+          <span>{{ complaint.get_status_display }}</span>
+        </div>
+      {% empty %}
+        <p>Shikoyatlar yo'q.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

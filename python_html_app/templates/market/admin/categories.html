@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Kategoriyalar boshqaruvi{% endblock %}
+{% block content %}
+<div class="section-head"><h1>Kategoriyalar</h1><a href="{% url 'admin_category_create' %}" class="btn">Yangi kategoriya</a></div>
+<div class="stack">
+  {% for category in categories %}
+    <div class="card list-line">
+      <strong>{{ category.name }}</strong>
+      <a class="btn btn-soft btn-small" href="{% url 'admin_category_edit' category.id %}">Tahrirlash</a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

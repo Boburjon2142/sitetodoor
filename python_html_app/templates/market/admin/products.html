@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Mahsulotlar boshqaruvi{% endblock %}
+{% block content %}
+<div class="section-head"><h1>Mahsulotlar</h1><a href="{% url 'admin_product_create' %}" class="btn">Yangi mahsulot</a></div>
+<div class="stack">
+  {% for product in products %}
+    <div class="card list-line list-line-wide">
+      <div><strong>{{ product.name }}</strong><p>{{ product.category.name }} · {{ product.price }} so'm</p></div>
+      <div class="row-actions">
+        <a class="btn btn-soft btn-small" href="{% url 'admin_product_edit' product.id %}">Tahrirlash</a>
+        <form method="post" action="{% url 'admin_product_delete' product.id %}">{% csrf_token %}<button class="btn btn-soft btn-small" type="submit">O'chirish</button></form>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

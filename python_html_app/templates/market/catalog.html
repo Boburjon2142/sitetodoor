@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Katalog{% endblock %}
+
+{% block content %}
+<section class="section-head section-head-wide">
+  <div>
+    <h1>Katalog</h1>
+    <p>Qurilish uchun kerakli mahsulotlarni sketchdagi kabi bloklar va filtrlarda tez toping.</p>
+  </div>
+</section>
+
+<div class="catalog-layout">
+  <aside class="filter-panel card">
+    <div class="panel-head">
+      <h2>Filtrlar</h2>
+      <span>Kategoriya, narx va mavjudlik bo'yicha</span>
+    </div>
+    <form method="get" class="filter-form">
+      <label>Qidirish<input type="text" name="q" value="{{ search_query }}"></label>
+      <label>Kategoriya
+        <select name="category">
+          <option value="">Barchasi</option>
+          {% for category in categories %}
+            <option value="{{ category.slug }}" {% if current_category == category.slug %}selected{% endif %}>{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>Min narx<input type="number" name="min_price" value="{{ min_price }}"></label>
+      <label>Maks narx<input type="number" name="max_price" value="{{ max_price }}"></label>
+      <label>Mavjudlik
+        <select name="availability">
+          <option value="">Barchasi</option>
+          <option value="in_stock" {% if current_availability == 'in_stock' %}selected{% endif %}>Faqat mavjud</option>
+        </select>
+      </label>
+      <label>Saralash
+        <select name="sort">
+          <option value="new" {% if current_sort == 'new' %}selected{% endif %}>Eng yangi</option>
+          <option value="popular" {% if current_sort == 'popular' %}selected{% endif %}>Eng mashhur</option>
+          <option value="price_asc" {% if current_sort == 'price_asc' %}selected{% endif %}>Arzonidan qimmatga</option>
+          <option value="price_desc" {% if current_sort == 'price_desc' %}selected{% endif %}>Qimmatidan arzonga</option>
+        </select>
+      </label>
+      <button type="submit" class="btn">Filtrlash</button>
+    </form>
+  </aside>
+
+  <section>
+    <div class="catalog-topbar card">
+      <div>
+        <strong>{{ page_obj.paginator.count }}</strong>
+        <span>ta mahsulot topildi</span>
+      </div>
+      <div class="catalog-pill-row">
+        <span class="catalog-pill">Qarshi bo'ylab yetkazish</span>
+        <span class="catalog-pill">Mobil-first ko'rinish</span>
+      </div>
+    </div>
+    <div class="product-grid">
+      {% for product in page_obj %}
+        {% include "market/partials/product_card.html" with product=product %}
+      {% empty %}
+        <div class="empty-state card"><p>Mahsulot topilmadi.</p></div>
+      {% endfor %}
+    </div>
+    {% include "market/partials/pagination.html" with page_obj=page_obj %}
+  </section>
+</div>
+{% endblock %}

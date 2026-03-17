@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Savat{% endblock %}
+
+{% block content %}
+<section class="section-head">
+  <div>
+    <h1>Savat</h1>
+    <p>Tanlangan mahsulotlarni ko'rib chiqing va buyurtmani yakunlang.</p>
+  </div>
+</section>
+
+{% if cart.items.all %}
+  <div class="cart-layout">
+    <div class="cart-items stack">
+      {% for item in cart.items.all %}
+        <div class="card cart-item">
+          <img src="{{ item.product.image|default:'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80' }}" alt="{{ item.product.name }}">
+          <div class="cart-item-body">
+            <div class="cart-item-top">
+              <div>
+                <span class="product-category">{{ item.product.category.name }}</span>
+                <h3>{{ item.product.name }}</h3>
+              </div>
+              <strong class="cart-line-total">{{ item.line_total }} so'm</strong>
+            </div>
+            <p class="product-meta">{{ item.product.price }} so'm / {{ item.product.unit }}</p>
+            <div class="cart-controls">
+              <form action="{% url 'update_cart_item' item.id %}" method="post">
+                {% csrf_token %}
+                <input type="number" name="quantity" min="1" value="{{ item.quantity }}">
+                <button class="btn btn-soft" type="submit">Yangilash</button>
+              </form>
+              <form action="{% url 'delete_cart_item' item.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-soft" type="submit">O'chirish</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <aside class="card order-summary enhanced-summary">
+      <h2>Buyurtma xulosasi</h2>
+      <div class="summary-row"><span>Mahsulotlar</span><strong>{{ cart.subtotal }} so'm</strong></div>
+      <div class="summary-row"><span>Yetkazish</span><strong>Checkout'da aniqlanadi</strong></div>
+      <div class="summary-divider"></div>
+      <div class="summary-row summary-total"><span>Jami</span><strong>{{ cart.subtotal }} so'm</strong></div>
+      <p class="muted-line">Yetkazish turi va manzil checkout bosqichida tanlanadi.</p>
+      <a href="{% url 'checkout' %}" class="btn">Checkout</a>
+    </aside>
+  </div>
+{% else %}
+  <div class="empty-state card fancy-empty-state">
+    <div class="empty-state-icon">0</div>
+    <h2>Savat hozircha bo'sh</h2>
+    <p>Kerakli mahsulotlarni savatga qo'shing va buyurtmani shu yerdan rasmiylashtiring.</p>
+    <a href="{% url 'catalog' %}" class="btn">Katalogga o'tish</a>
+  </div>
+{% endif %}
+{% endblock %}

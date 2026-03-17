@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Profilni tahrirlash{% endblock %}
+{% block content %}
+<div class="card form-card">
+  <h1>Profil ma'lumotlari</h1>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-field">
+        <label>{{ field.label }}</label>
+        {{ field }}
+      </div>
+    {% endfor %}
+    <button class="btn" type="submit">Saqlash</button>
+  </form>
+</div>
+{% endblock %}
